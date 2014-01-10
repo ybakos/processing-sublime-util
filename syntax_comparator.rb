@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'nokogiri'
 
 class SyntaxComparator
@@ -24,7 +25,8 @@ class SyntaxComparator
   private
 
     def parse_api_words
-      %w(a b c)
+      xml = Nokogiri::HTML(open(@api_url))
+      xml_content = xml.css("a.ref-link").map { |e| e.content.match(/^(\w*)/)[1] }.reject(&:empty?)
     end
 
     def parse_package_syntax_words
