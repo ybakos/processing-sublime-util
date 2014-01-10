@@ -39,8 +39,8 @@ class SyntaxComparator
 
     # Highly sensitive to the structure of the tmLanguage xml tree
     def extract_keywords_from_xml(xml)
-      xml_content = xml.css(XML_NODE_NAME)[SYNTAX_ELEMENT_INDEX].to_s
-      xml_content.match(EXTRACTION_REGEX)[1].split(SPLIT_CHARACTER)
+      xml_content = xml.css(XML_NODE_NAME)
+      xml_content.map { |e| e.to_s.match(EXTRACTION_REGEX) }.compact!.map {|e| e[1].split(SPLIT_CHARACTER)}.flatten!
     end
 
 end
