@@ -4,10 +4,10 @@ require 'nokogiri'
 class SyntaxComparator
 
   XML_NODE_NAME = "string" # Typically "string", which wraps the regex you're after.
-  SYNTAX_ELEMENT_INDEX = 6 # There are lots of these nodes, so which one do you want?
                            # There's got to be a better way to do this...
   EXTRACTION_REGEX = /\\b\((.*)\)\\b/
   SPLIT_CHARACTER = '|'
+  API_REFERENCE_DOM_SELECTOR = "a.ref-link"
 
   def initialize(api_url, tm_language_path)
     @api_url = api_url
@@ -26,7 +26,7 @@ class SyntaxComparator
 
     def parse_api_words
       xml = Nokogiri::HTML(open(@api_url))
-      xml_content = xml.css("a.ref-link").map { |e| e.content.match(/^(\w*)/)[1] }.reject(&:empty?)
+      xml_content = xml.css(API_REFERENCE_DOM_SELECTOR).map { |e| e.content.match(/^(\w*)/)[1] }.reject(&:empty?)
     end
 
     def parse_package_syntax_words
