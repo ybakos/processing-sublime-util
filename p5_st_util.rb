@@ -5,7 +5,7 @@ require_relative 'syntax_comparator'
 
 class P5ST2Util < Thor
 
-  PROCESSING_API_REFERENCE_URL = "http://processing.org/reference/"
+  PROCESSING_API_REFERENCE_URL = "https://processing.org/reference/"
 
   desc "compare", "Compare the public Processing API reference to a Processing.tmLanguage file."
   def compare(tmlanguage_path)
